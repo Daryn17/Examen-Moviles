@@ -93,6 +93,23 @@ public class Admi_db {
             return false;
         }
 
+        public boolean logRequestUser(String name){
+
+            String[] columns = new String[] {ID,USER_NAME,USER_PASSWORD};
+            Cursor cursor = db.query(USERS_TABLE_NAME, columns, null, null, null, null, null);
+
+            int iName = cursor.getColumnIndex(USER_NAME);
+            int iPassword = cursor.getColumnIndex(USER_PASSWORD);
+
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+
+                if(cursor !=  null)
+                    if(name.equals(cursor.getString(iName)))
+                        return true;
+            }
+            return false;
+        }
+
         public void insertDB(Object data, String tableName){
             switch (tableName){
                 case ORQUIDEA_TABLE_NAME:

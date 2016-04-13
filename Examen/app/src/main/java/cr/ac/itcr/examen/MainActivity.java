@@ -1,5 +1,6 @@
 package cr.ac.itcr.examen;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,10 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(admi_db.logRequest(user, pass)){
-            Toast t = Toast.makeText(this, user, Toast.LENGTH_SHORT);
+            /*Toast t = Toast.makeText(this, user, Toast.LENGTH_SHORT);
             Toast y = Toast.makeText(this, pass,Toast.LENGTH_SHORT);
             t.show();
-            y.show();
+            y.show();*/
+            Intent dashboard = new Intent(this, DashboardActivity.class);
+            final int result = 1;
+            startActivityForResult(dashboard,result);
         }
         else
             Toast.makeText(this,"Usiario no registrado",Toast.LENGTH_SHORT);
@@ -54,12 +58,14 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textViewPass = (TextView) findViewById(R.id.txtPassword);
         String pass = textViewPass.getText().toString();
-        if(admi_db.logRequest(user, pass)){
+        if(admi_db.logRequestUser(user)){
             Toast.makeText(this, "Este usuario ya esta registrado", Toast.LENGTH_SHORT).show();
         }
         else{
             User newUser = new User(user,pass);
             admi_db.insertDB(newUser, Admi_db.USERS_TABLE_NAME);
+            Toast.makeText(this, "Se registro correctamente", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
