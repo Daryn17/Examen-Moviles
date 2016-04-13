@@ -47,4 +47,19 @@ public class MainActivity extends AppCompatActivity {
         else
             Toast.makeText(this,"Usiario no registrado",Toast.LENGTH_SHORT);
     }
+
+    public void clickRegi(View view) {
+        TextView textViewUser = (TextView) findViewById(R.id.txtUser);
+        String user = textViewUser.getText().toString();
+
+        TextView textViewPass = (TextView) findViewById(R.id.txtPassword);
+        String pass = textViewPass.getText().toString();
+        if(admi_db.logRequest(user, pass)){
+            Toast.makeText(this, "Este usuario ya esta registrado", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            User newUser = new User(user,pass);
+            admi_db.insertDB(newUser, Admi_db.USERS_TABLE_NAME);
+        }
+    }
 }
