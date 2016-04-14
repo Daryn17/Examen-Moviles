@@ -1,19 +1,18 @@
 package cr.ac.itcr.examen;
 
 /**
- * Created by Daryn on 12/4/2016.
+ * Created by Daryn on 13/4/2016.
  */
 public class Orquidea {
+    String nombre;
+    String cantPet;
+    String color;
+    String lugar;
 
-    public String nombre;
-    public int cantPetalos;
-    public String color;
-    public String lugar;
-
-    public Orquidea(String nombre, String lugar, String color, int cantPetalos) {
+    public Orquidea(String nombre, String cantPet, String color, String lugar) {
         this.nombre = nombre;
-        this.lugar = lugar;
+        this.cantPet = cantPet;
         this.color = color;
-        this.cantPetalos = cantPetalos;
+        this.lugar = lugar;
     }
 }

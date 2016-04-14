@@ -1,31 +1,28 @@
 package cr.ac.itcr.examen;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AgregarFragment.OnFragmentInteractionListener} interface
+ * {@link ListaFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AgregarFragment#newInstance} factory method to
+ * Use the {@link ListaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AgregarFragment extends Fragment {
-    Button   mButton;
-    EditText mEdit;
+public class ListaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +34,7 @@ public class AgregarFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public AgregarFragment() {
+    public ListaFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +44,11 @@ public class AgregarFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AgregarFragment.
+     * @return A new instance of fragment ListaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AgregarFragment newInstance(String param1, String param2) {
-        AgregarFragment fragment = new AgregarFragment();
+    public static ListaFragment newInstance(String param1, String param2) {
+        ListaFragment fragment = new ListaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,33 +59,27 @@ public class AgregarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
-
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_agregar,
-                container, false);
-        final Button button = (Button) view.findViewById(R.id.btnAgregarOrq);
-        final TextView txtNomOrq = (TextView) view.findViewById(R.id.txtNombre);
-        final TextView txtCantPet = (TextView) view.findViewById(R.id.txtCantPet);
-        final TextView txtColor = (TextView) view.findViewById(R.id.txtColor);
-        final TextView txtLugar = (TextView) view.findViewById(R.id.txtLugar);
-        button.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                String nombre = txtNomOrq.getText().toString();
-                String cantPet = txtCantPet.getText().toString();
-                String color = txtColor.getText().toString();
-                String lugar = txtLugar.getText().toString();
-                Orquidea newOrq = new Orquidea(nombre, cantPet, color,lugar);
-                Admi_db.insertDB(newOrq, Admi_db.ORQUIDEA_TABLE_NAME);
-            }
-        });
+        // Inflate the layout for this fragment
+
+        View view = inflater.inflate(R.layout.fragment_lista,container, false);
+
+        ListView lOrq = (ListView) view.findViewById(R.id.listOrq);
+
+        ArrayList<String> stringArray = Admi_db.getOrq();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(view.getContext(), android.R.layout.simple_expandable_list_item_1, stringArray);
+        lOrq.setAdapter(adapter);
+
+
         return view;
     }
 

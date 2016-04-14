@@ -17,7 +17,7 @@ public class Helper_db extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(Admi_db.newAvesTable);
+        db.execSQL(Admi_db.newOrquideaTable);
         db.execSQL(Admi_db.newUsersTable);
     }
 

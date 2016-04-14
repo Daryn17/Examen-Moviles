@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         admi_db = new Admi_db(this, "EXAMEN_DATA_BASE");
         //addDefaultUsersToDataBase();
+        //Admi_db.deleteTable(Admi_db.ORQUIDEA_TABLE_NAME);
+        //Admi_db.deleteTable(Admi_db.USERS_TABLE_NAME);
+        //addDefaultOrquideasToDataBase();
+
     }
 
 
@@ -26,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < 6; i++){
             User newUser = new User("name"+String.valueOf(i),"pass"+String.valueOf(i));
             admi_db.insertDB(newUser, Admi_db.USERS_TABLE_NAME);
+        }
+    }
+
+    private void addDefaultOrquideasToDataBase(){
+        for(int i = 0; i < 6; i++){
+            Orquidea newOrq = new Orquidea("nombre"+String.valueOf(i), "cantPet"+String.valueOf(i), "color"+String.valueOf(i), "lugar+String.valueOf(i)");
+            admi_db.insertDB(newOrq, Admi_db.ORQUIDEA_TABLE_NAME);
         }
     }
 
@@ -40,10 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         if(admi_db.logRequest(user, pass)){
-            /*Toast t = Toast.makeText(this, user, Toast.LENGTH_SHORT);
-            Toast y = Toast.makeText(this, pass,Toast.LENGTH_SHORT);
-            t.show();
-            y.show();*/
             Intent dashboard = new Intent(this, DashboardActivity.class);
             final int result = 1;
             startActivityForResult(dashboard,result);
@@ -67,5 +74,4 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Se registro correctamente", Toast.LENGTH_SHORT).show();
         }
     }
-
 }

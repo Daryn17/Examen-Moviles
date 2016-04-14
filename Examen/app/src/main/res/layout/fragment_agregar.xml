@@ -1,7 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cr.ac.itcr.examen.AgregarFragment">
+
+    <!-- TODO: Update blank fragment layout -->
 
 
     <TableLayout
@@ -18,17 +21,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nombre:"
-                android:id="@+id/lblNombre"
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp"/>
+                android:layout_marginTop="20dp"/>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtNombre"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"/>
 
         </TableRow>
@@ -42,15 +44,16 @@
                 android:text="Cantidad Petalos:"
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="20dp" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtCantPet"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -61,14 +64,16 @@
                 android:text="Color:"
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="20dp"/>
+
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtColor"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="50dp"
-                android:layout_weight="1" />
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"/>
+
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -80,13 +85,13 @@
                 android:text="Lugar:"
                 android:textSize="20sp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="50dp" />
+                android:layout_marginTop="20dp" />
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtLugar"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1" />
         </TableRow>
 
@@ -94,17 +99,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="30dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Agregar"
-                android:id="@+id/btnAgregar"
-                android:onClick="clickLog"/>
+                android:id="@+id/btnAgregarOrq"/>
 
         </TableRow>
 
     </TableLayout>
 
-</LinearLayout>
+</FrameLayout>

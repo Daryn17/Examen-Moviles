@@ -17,7 +17,7 @@ public class Admi_db {
 
         //Orquidea Strings
         private static final String ORQ_NOMBRE = "nombre";
-        private static final String ORQ_CANTPET = "cantPetalos";
+        private static final String ORQ_CANTPET = "cantPeta";
         private static final String ORQ_COLOR = "color";
         private static final String ORQ_LUGAR = "lugar";
 
@@ -28,13 +28,13 @@ public class Admi_db {
 
 
         //Attributes
-        private SQLiteDatabase db;
+        public static SQLiteDatabase db;
         private Helper_db dbHelper;
 
-        public static String newAvesTable = "create table " + ORQUIDEA_TABLE_NAME +
+        public static String newOrquideaTable = "create table " + ORQUIDEA_TABLE_NAME +
                 " (" + ID + " integer primary key autoincrement, " +
                 ORQ_NOMBRE + " text not null, " +
-                ORQ_CANTPET + "text not null, " +
+                ORQ_CANTPET + " text not null, " +
                 ORQ_COLOR + " text not null, " +
                 ORQ_LUGAR + " text not null);";
 
@@ -43,18 +43,18 @@ public class Admi_db {
                 USER_NAME + " text not null, " +
                 USER_PASSWORD + " text not null);";
 
-        public Admi_db(Context context, String name) {
+        public  Admi_db(Context context, String name) {
             dbHelper = new Helper_db(context, name);
             db =  dbHelper.getWritableDatabase();
             //context.deleteDatabase("EXAMEN_DATA_BASE");
         }
 
-        public void deleteTable(String tableName){
+        public static void deleteTable(String tableName){
 
             db.execSQL("DELETE FROM " + tableName + " ;");
 
         }
-        public void dropTable(String tableName){
+        public static void dropTable(String tableName){
 
             db.execSQL("drop table " + tableName + " ;");
 
@@ -71,6 +71,24 @@ public class Admi_db {
 
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
                 output.add(cursor.getString(iID) + " " + cursor.getString(iName) + " " + cursor.getString(iPassword));
+            }
+
+            return output;
+        }
+        public static ArrayList<String> getOrq(){
+            ArrayList<String> output = new ArrayList<>();
+            String[] columns = new String[] {ID,ORQ_NOMBRE, ORQ_CANTPET, ORQ_COLOR, ORQ_LUGAR};
+            Cursor cursor = db.query(ORQUIDEA_TABLE_NAME,columns,null,null,null,null,null);
+
+            int iID = cursor.getColumnIndex(ID);
+            int iName = cursor.getColumnIndex(ORQ_NOMBRE);
+            int iCanPet = cursor.getColumnIndex(ORQ_CANTPET);
+            int iColor = cursor.getColumnIndex(ORQ_COLOR);
+            int iLugar = cursor.getColumnIndex(ORQ_LUGAR);
+
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()){
+                output.add(cursor.getString(iID) + " " + cursor.getString(iName) + " "
+                        + cursor.getString(iCanPet) + " " + cursor.getString(iColor) + " " + cursor.getString(iLugar));
             }
 
             return output;
@@ -110,7 +128,7 @@ public class Admi_db {
             return false;
         }
 
-        public void insertDB(Object data, String tableName){
+        public static void insertDB(Object data, String tableName){
             switch (tableName){
                 case ORQUIDEA_TABLE_NAME:
                     insertarOrqu((Orquidea) data);
@@ -120,7 +138,7 @@ public class Admi_db {
                     return;
             }
         }
-        public void daleteDB(int id, String tableName){
+        public static void daleteDB(int id, String tableName){
             switch (tableName){
                 case ORQUIDEA_TABLE_NAME:
                     deleteAves(id);
@@ -130,7 +148,7 @@ public class Admi_db {
                     return;
             }
         }
-        public void updateDB(Object data, int id, String tableName){
+        public static void updateDB(Object data, int id, String tableName){
             switch (tableName){
                 case ORQUIDEA_TABLE_NAME:
                     actualizarOrq(id, (Orquidea) data);
@@ -141,30 +159,30 @@ public class Admi_db {
             }
         }
 
-        private void insertarOrqu(Orquidea orquidea){
+        private static void insertarOrqu(Orquidea orquidea){
 
             String insertion = "insert into " + ORQUIDEA_TABLE_NAME + " (" +
-                    ORQ_NOMBRE +
-                    ORQ_CANTPET +
-                    ORQ_COLOR +
+                    ORQ_NOMBRE + " , " +
+                    ORQ_CANTPET + " , " +
+                    ORQ_COLOR + " , " +
                     ORQ_LUGAR +
                     " ) values ( \"" +
                     orquidea.nombre + "\" , \"" +
-                    orquidea.cantPetalos + "\" , \"" +
+                    orquidea.cantPet + "\" , \"" +
                     orquidea.color + "\" , \"" +
                     orquidea.lugar + "\" );";
 
             db.execSQL(insertion);
 
         }
-        private void deleteAves(int id){
+        private static void deleteAves(int id){
             db.delete(ORQUIDEA_TABLE_NAME, ID + "=?", new String[]{String.valueOf(id)});
         }
-        private void actualizarOrq(int id, Orquidea orquidea){
+        private static void actualizarOrq(int id, Orquidea orquidea){
 
             String updateSql = "update " + ORQUIDEA_TABLE_NAME + " set " +
                     ORQ_NOMBRE + " = \"" + orquidea.nombre + "\" , " +
-                    ORQ_CANTPET + " = \"" + orquidea.cantPetalos + "\" , " +
+                    ORQ_CANTPET + " = \"" + orquidea.cantPet + "\" , " +
                     ORQ_COLOR + " = \"" + orquidea.color + "\" , " +
                     ORQ_LUGAR + " = \"" + orquidea.lugar +
                     "\" where " + ID + " = \"" + String.valueOf(id) + "\";";
@@ -173,7 +191,7 @@ public class Admi_db {
 
         }
 
-        private void insertUsers(User user){
+        private static void insertUsers(User user){
             String insertion = "insert into " + USERS_TABLE_NAME + " (" +
                     USER_NAME + " , " +
                     USER_PASSWORD +
@@ -182,10 +200,10 @@ public class Admi_db {
                     user.pass + "\" );";
             db.execSQL(insertion);
         }
-        private void deleteUsers(int id){
+        private static void deleteUsers(int id){
             db.delete(USERS_TABLE_NAME, ID + "=?", new String[]{String.valueOf(id)});
         }
-        private void updateUsers(int id, User user){
+        private static void updateUsers(int id, User user){
             String updateSql = "update " + USERS_TABLE_NAME + " set " +
                     USER_NAME + " = \"" + user.nombre + "\" , " +
                     USER_PASSWORD + " = \"" + user.pass +
