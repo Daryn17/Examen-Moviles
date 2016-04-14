@@ -31,14 +31,14 @@ public class Admi_db {
         public static SQLiteDatabase db;
         private Helper_db dbHelper;
 
-        public static String newOrquideaTable = "create table " + ORQUIDEA_TABLE_NAME +
+        public static String newOrquideaTable = "create table if not exists " + ORQUIDEA_TABLE_NAME +
                 " (" + ID + " integer primary key autoincrement, " +
                 ORQ_NOMBRE + " text not null, " +
                 ORQ_CANTPET + " text not null, " +
                 ORQ_COLOR + " text not null, " +
                 ORQ_LUGAR + " text not null);";
 
-        public static String newUsersTable = "create table " + USERS_TABLE_NAME +
+        public static String newUsersTable = "create table table if not exists " + USERS_TABLE_NAME +
                 " (" + ID + " integer primary key autoincrement, " +
                 USER_NAME + " text not null, " +
                 USER_PASSWORD + " text not null);";
@@ -63,7 +63,7 @@ public class Admi_db {
         public ArrayList<String> getData(String tableName){
             ArrayList<String> output = new ArrayList<>();
             String[] columns = new String[] {ID,USER_NAME,USER_PASSWORD};
-            Cursor cursor = db.query(tableName,columns,null,null,null,null,null);
+            Cursor cursor = db.query(tableName, columns, null, null,null,null,null);
 
             int iID = cursor.getColumnIndex(ID);
             int iName = cursor.getColumnIndex(USER_NAME);
@@ -138,26 +138,7 @@ public class Admi_db {
                     return;
             }
         }
-        public static void daleteDB(int id, String tableName){
-            switch (tableName){
-                case ORQUIDEA_TABLE_NAME:
-                    deleteAves(id);
-                    return;
-                case USERS_TABLE_NAME:
-                    deleteUsers(id);
-                    return;
-            }
-        }
-        public static void updateDB(Object data, int id, String tableName){
-            switch (tableName){
-                case ORQUIDEA_TABLE_NAME:
-                    actualizarOrq(id, (Orquidea) data);
-                    return;
-                case USERS_TABLE_NAME:
-                    updateUsers(id, (User) data);
-                    return;
-            }
-        }
+
 
         private static void insertarOrqu(Orquidea orquidea){
 
@@ -175,10 +156,10 @@ public class Admi_db {
             db.execSQL(insertion);
 
         }
-        private static void deleteAves(int id){
-            db.delete(ORQUIDEA_TABLE_NAME, ID + "=?", new String[]{String.valueOf(id)});
+        public static void EliminarOrq(String nombre){
+            db.delete(ORQUIDEA_TABLE_NAME, ORQ_NOMBRE + "=?", new String[]{nombre});
         }
-        private static void actualizarOrq(int id, Orquidea orquidea){
+        public static void actualizarOrq(String id, Orquidea orquidea){
 
             String updateSql = "update " + ORQUIDEA_TABLE_NAME + " set " +
                     ORQ_NOMBRE + " = \"" + orquidea.nombre + "\" , " +

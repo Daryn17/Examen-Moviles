@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void addDefaultOrquideasToDataBase(){
         for(int i = 0; i < 6; i++){
-            Orquidea newOrq = new Orquidea("nombre"+String.valueOf(i), "cantPet"+String.valueOf(i), "color"+String.valueOf(i), "lugar+String.valueOf(i)");
+            Orquidea newOrq = new Orquidea("nombre"+String.valueOf(i), "cantPet"+String.valueOf(i), "color"+String.valueOf(i), "lugar"+String.valueOf(i));
             admi_db.insertDB(newOrq, Admi_db.ORQUIDEA_TABLE_NAME);
         }
     }

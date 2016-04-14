@@ -28,7 +28,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 public class DashboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         AgregarFragment.OnFragmentInteractionListener,
-        ListaFragment.OnFragmentInteractionListener{
+        ListaFragment.OnFragmentInteractionListener,
+        EliminarFragment.OnFragmentInteractionListener,
+        AboutFragment.OnFragmentInteractionListener,
+        ActualizarFragment.OnFragmentInteractionListener{
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -100,10 +103,16 @@ public class DashboardActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.content_dashboard, fragment).commit();
 
         } else if (id == R.id.nav_eliminar) {
+            Fragment fragment = new EliminarFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_dashboard, fragment).commit();
 
         } else if (id == R.id.nav_modificar) {
+            Fragment fragment = new ActualizarFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_dashboard, fragment).commit();
 
         } else if (id == R.id.nav_about) {
+            Fragment fragment = new AboutFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_dashboard, fragment).commit();
 
         } else if (id == R.id.nav_listado) {
             Fragment fragment = new ListaFragment();
