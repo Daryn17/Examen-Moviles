@@ -166,7 +166,7 @@ public class Admi_db {
                     ORQ_CANTPET + " = \"" + orquidea.cantPet + "\" , " +
                     ORQ_COLOR + " = \"" + orquidea.color + "\" , " +
                     ORQ_LUGAR + " = \"" + orquidea.lugar +
-                    "\" where " + ID + " = \"" + String.valueOf(id) + "\";";
+                    "\" where " + ORQ_NOMBRE + " = \"" + String.valueOf(id) + "\";";
             db.execSQL(updateSql);
 
 
