@@ -67,7 +67,6 @@ public class ActualizarFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_actualizar,
                 container, false);
-        final Button button = (Button) view.findViewById(R.id.btnBuscar);
         final Button button2 = (Button) view.findViewById(R.id.btnModificar);
         final TextView txtNomVi = (TextView) view.findViewById(R.id.txtNombreVi);
         final TextView txtNomOrq = (TextView) view.findViewById(R.id.txtNombreMo);
